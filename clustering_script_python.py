@@ -8,7 +8,7 @@ sc.settings.verbosity = 3             # verbosity: errors (0), warnings (1), inf
 results_folder = 'write'
 adata = sc.read_csv("full_dataset_biexp_aligned.csv", first_column_names = True)
 
-nn_number_list = [10] 				  # a list of numbers of nearest neighbors to consider for clustering
+nn_number_list = [10, 12] 				  # a list of numbers of nearest neighbors to consider for clustering
 resolution_list = [0.001, 0.010, 0.015, 0.02]		  # a list of resolutions to consider for cluster annotation
 	
 
@@ -24,12 +24,12 @@ def main():
 			n_pcs=20, key_added=nn_key_added)
 		#cluster embedding and annotation
 		for res in resolution_list:
-			sc.tl.umap(anndata, min_dist=1, spread=1, neighbors_key=nn_key_added)
-			leiden_key_added = 'leiden_res_'+str(res).replace('.','_')+'_'+nn_key_added
+			leiden_key_added = 'leiden_res_'+str(res)+'_'+nn_key_added
+			#sc.tl.umap(adata, min_dist=1, spread=1, neighbors_key=nn_key_added)
 			sc.tl.leiden(adata, resolution=res, key_added=leiden_key_added, 
 				neighbors_key=nn_key_added)
-			
-	adata.write(results_folder+'/results.h5ad')
+
+		adata.write(results_folder+'/results.h5ad')
 
 if __name__== "__main__":
 	main()
