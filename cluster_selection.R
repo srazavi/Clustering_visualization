@@ -17,6 +17,5 @@ for (val in nn_number_vector) {
   clustree_graph <- 
     clustree(clusters, prefix=clustering_res_prefix, 
              suffix=nn_col_suffix, label_nodes=T)
-  clustree_graph
+  ggsave(paste("clustering_tree_", nn_col_suffix, ".png", sep=""), clustree_graph)
 }
-
