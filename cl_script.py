@@ -25,6 +25,7 @@ def main():
 		#cluster embedding and annotation
 		for res in resolution_list:
 			leiden_key_added = 'leiden_res_'+str(res)+'_'+nn_key_added
+			#line below must be uncommented, issue regarding saving of umap
 			#sc.tl.umap(adata, min_dist=1, spread=1, neighbors_key=nn_key_added)
 			sc.tl.leiden(adata, resolution=res, key_added=leiden_key_added, 
 				neighbors_key=nn_key_added)
