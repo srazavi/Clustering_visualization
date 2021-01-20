@@ -20,13 +20,15 @@ def main():
 	for n_neighbors in nn_number_list:
 		#clustering
 		nn_key_added = str(n_neighbors)+'_nn'
+		umap_obsm_key = 'X_umap'+nn_key_added
 		sc.pp.neighbors(adata, method='umap',n_neighbors=n_neighbors, 
 			n_pcs=20, key_added=nn_key_added)
-		#cluster embedding and annotation
+		adata_copy = sc.tl.umap(adata, min_dist=1, spread=1, \
+								neighbors_key=nn_key_added, copy=True)
+		adata.obsm[umap_obsm_key] = adata_copy.obsm['X_umap']
+		#cluster annotation
 		for res in resolution_list:
 			leiden_key_added = 'leiden_res_'+str(res)+'_'+nn_key_added
-			#line below must be uncommented, issue regarding saving of umap
-			#sc.tl.umap(adata, min_dist=1, spread=1, neighbors_key=nn_key_added)
 			sc.tl.leiden(adata, resolution=res, key_added=leiden_key_added, 
 				neighbors_key=nn_key_added)
 
