@@ -5,7 +5,7 @@ library(tidyverse)
 
 nn_suffix <- "_nn"
 nn_number_vector <- c(10, 12)
-clustering_res_prefix <- "lr_"
+clustering_res_prefix <- "leiden_res_"
 
 Convert("write/results.h5ad", dest = "h5seurat", overwrite = T)
 scanpy_object_Seurat <- LoadH5Seurat(paste("write/results.h5seurat", sep=""))
