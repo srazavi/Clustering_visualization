@@ -20,7 +20,6 @@ packaging==20.9
 pandas==1.1.5
 patsy==0.5.1
 Pillow==8.1.0
-pkg-resources==0.0.0
 pynndescent==0.5.1
 pyparsing==2.4.7
 python-dateutil==2.8.1
