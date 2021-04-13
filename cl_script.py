@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import scanpy as sc
 import anndata as ad
+import os
 
 sc.settings.verbosity = 3             				  # verbosity: errors (0), warnings (1), info (2), hints (3)
 results_folder = 'write'
@@ -30,8 +31,8 @@ def main():
 			sc.tl.leiden(adata, resolution=res, key_added=leiden_key_added, 
 				neighbors_key=nn_key_added)
 
-		os.mkdir('write') if not os.path.exists('write') else None
-		adata.write(results_folder+'/results.h5ad')
+	os.mkdir('write') if not os.path.exists('write') else None
+	adata.write(results_folder+'/results.h5ad')
 
 if __name__== "__main__":
 	main()
