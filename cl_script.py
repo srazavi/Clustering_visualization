@@ -5,11 +5,10 @@ import anndata as ad
 
 sc.settings.verbosity = 3             				  # verbosity: errors (0), warnings (1), info (2), hints (3)
 results_folder = 'write'
-adata = sc.read_csv("full_dataset_biexp_aligned.csv", first_column_names = True)
+adata = sc.read_csv("dataset_cleaned.csv", first_column_names = True)
 
 nn_number_list = [10, 12] 				  			  # a list of numbers of nearest neighbors to consider for clustering
 resolution_list = [0.001, 0.010, 0.015, 0.02]		  # a list of resolutions to consider for cluster annotation
-	
 
 def main():
 	# common pre-processing steps
@@ -31,9 +30,8 @@ def main():
 			sc.tl.leiden(adata, resolution=res, key_added=leiden_key_added, 
 				neighbors_key=nn_key_added)
 
+		os.mkdir('write') if not os.path.exists('write') else None
 		adata.write(results_folder+'/results.h5ad')
 
 if __name__== "__main__":
 	main()
-
-
